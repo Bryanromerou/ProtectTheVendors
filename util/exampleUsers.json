@@ -1,0 +1,32 @@
+{
+  "1": {
+    "profileType": "vendor",
+    "location": "103 N Winton Avenue La Puente, CA 91744",
+    "permit": false,
+    "name": "Bryan Romero",
+    "locationName": "Bryan's Awesome burger",
+    "tags": ["Burger", "Burgers", "Yummy", "Dank", "Cheeseburger"],
+    "description": "We got the best burgers in La Puente",
+    "userID": "1"
+  },
+  "2": {
+    "profileType": "vendor",
+    "location": "4579 Whittier BlvdEast Los Angeles, CA 90022",
+    "permit": true,
+    "name": "Jose Ramirez",
+    "locationName": "",
+    "tags": ["Fruit", "Yummy", "Pineapple", "Watermelon", "Coco"],
+    "description": "Get your fresh cut fruit!!",
+    "userID": "2"
+  },
+  "3": {
+    "profileType": "vendor",
+    "location": "11298 S Willowbrook Ave, Compton, CA 90222",
+    "permit": false,
+    "name": "Bert Simmons",
+    "locationName": "Los Angeles' True Burger King",
+    "tags": ["Burger", "Burgers", "Yummy", "Dank", "Cheeseburger"],
+    "description": "The name speak for its self, try it yourself and you will not be disappointed!",
+    "userID": "3"
+  }
+}
