@@ -1,6 +1,7 @@
 import * as React from "react";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { Callout, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { profileType } from "../../util/types";
 
 // https://docs.expo.dev/versions/latest/sdk/map-view/
 // https://www.npmjs.com/package/react-native-google-places
@@ -23,14 +24,30 @@ interface Props {
   route: {
     name: string;
   };
+  ExampleUsers: profileType[];
 }
 
-export default function Map(props: Props) {
-  React.useEffect(() => {
-    // return(()=>{
-    // console.log('unmounting now...')
-    // })
-  }, [props.route]);
+export default function Map({ route, ExampleUsers }: Props) {
+  React.useEffect(() => {}, [route]);
+
+  const markers = ExampleUsers.map((vendor) => (
+    <Marker
+      key={vendor.userID}
+      coordinate={{
+        latitude: Number(vendor.locationCoordinates?.latitude),
+        longitude: Number(vendor.locationCoordinates?.longitude)
+      }}
+    >
+      <Callout>
+        <Text style={{ fontWeight: "bold" }}>
+          {vendor.locationName ||
+            (vendor.name && `${vendor.name.split(" ")[0]}'s Stand`)}
+        </Text>
+        <Text>Come check us out at {vendor.location}!</Text>
+        {vendor.description !== "" ? <Text>{vendor.description}</Text> : null}
+      </Callout>
+    </Marker>
+  ));
 
   return (
     <View style={styles.container}>
@@ -38,7 +55,9 @@ export default function Map(props: Props) {
         style={styles.map}
         // provider={PROVIDER_GOOGLE}
         initialRegion={INITIAL_POSITION}
-      />
+      >
+        {markers}
+      </MapView>
     </View>
   );
 }

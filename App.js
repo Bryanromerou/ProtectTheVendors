@@ -1,29 +1,34 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import AlertScreen from './Pages/Alert/index';
-import MapScreen from './Pages/Map/index.tsx';
-import ProfileScreen from './Pages/Profile';
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import ExampleUsers from "./util/exampleUsers.json";
+import { profileType } from "./util/types";
+import AlertScreen from "./Pages/Alert/index";
+import MapScreen from "./Pages/Map/index.tsx";
+import ProfileScreen from "./Pages/Profile";
 
 const Tab = createBottomTabNavigator();
+const { Navigator, Screen } = Tab;
+
+const exampleUserArray = Object.values(ExampleUsers);
 
 const screenOptionFunction = ({ route }) => ({
   tabBarIcon: ({ focused, color, size }) => {
     switch (route.name) {
-      case 'Alert':
-        return <Ionicons name={'alert'} size={size} color={color} />;
-      case 'Profile':
+      case "Alert":
+        return <Ionicons name={"alert"} size={size} color={color} />;
+      case "Profile":
         return (
           <Ionicons
-            name={focused ? 'person' : 'ios-person-outline'}
+            name={focused ? "person" : "ios-person-outline"}
             size={size}
             color={color}
           />
         );
-      case 'Map':
+      case "Map":
         return (
           <Ionicons
-            name={focused ? 'map' : 'ios-map-outline'}
+            name={focused ? "map" : "ios-map-outline"}
             size={size}
             color={color}
           />
@@ -32,18 +37,24 @@ const screenOptionFunction = ({ route }) => ({
         return;
     }
   },
-  tabBarActiveTintColor: 'tomato',
-  tabBarInactiveTintColor: 'gray'
+  tabBarActiveTintColor: "tomato",
+  tabBarInactiveTintColor: "gray"
 });
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={screenOptionFunction}>
-        <Tab.Screen name="Alert" component={AlertScreen} />
-        <Tab.Screen name="Map" component={MapScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-      </Tab.Navigator>
+      <Navigator screenOptions={screenOptionFunction}>
+        <Screen name="Alert">{(props) => <AlertScreen {...props} />}</Screen>
+        <Screen name="Map">
+          {(props) => <MapScreen {...props} ExampleUsers={exampleUserArray} />}
+        </Screen>
+        <Screen name="Profile">
+          {(props) => (
+            <ProfileScreen {...props} ExampleUsers={exampleUserArray} />
+          )}
+        </Screen>
+      </Navigator>
     </NavigationContainer>
   );
 }

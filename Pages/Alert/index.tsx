@@ -6,7 +6,11 @@ import { profileType } from "../../util/types";
 const exampleUserArray = Object.values(ExampleUsers) as profileType[];
 
 const Alert = () => {
-  const AlertMessages = exampleUserArray.map(user=>(<Text style={styles.text}>{user.name} is in trouble!! At: {user.location}</Text>))
+  const AlertMessages = exampleUserArray.map((user) => (
+    <Text key={user.userID} style={styles.text}>
+      {user.name} is in trouble!! At: {user.location}
+    </Text>
+  ));
 
   return (
     <View>
@@ -20,7 +24,7 @@ const Alert = () => {
 const styles = StyleSheet.create({
   text: {
     marginBottom: 10
-  },
+  }
 });
 
 export default Alert;
